@@ -266,7 +266,7 @@ if (@activecells)
 {
     for my $acn(@activecells)
     {
-        my $acell = @allcells[$acn-1];
+        my $acell = $allcells[$acn-1];
         print "Active cell: $acell->[0] $acell->[1]\n";
         push @selectedcells, $acell;
     }
