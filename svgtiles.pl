@@ -4,6 +4,9 @@ use strict;
 use warnings;
 
 use Getopt::Long;
+use Text::CSV_XS qw/csv/;
+use FindBin;
+use lib $FindBin::Bin;
 
 use SVGStep;
 use SVGSub;
@@ -67,6 +70,12 @@ GetOptions('input|i=s'        => \$tilepath,
            'datasource|d=s'   => \$datasource,
            'query|q=s'        => \$query,
            'copies|c=s'       => \$copies);
+
+sub usage {
+    print "Usage: $0 -i input.svg -o output.svg\n";
+    print "    -s pagesize -t tiles -I pitch -O origin\n";
+    exit 1;
+}
 
 # verify/expand options
 
@@ -153,6 +162,11 @@ for my $varspec(@data_defs)
     }
 }
 
+unless (defined $tilepath && defined $outputpath)
+{
+    usage();
+}
+
 die "No input specified\n" unless defined $tilepath;
 die "No output specified\n" unless defined $outputpath;
 
@@ -205,7 +219,9 @@ if (defined $datasource)
 {
     if ($dataformat eq 'CSV')
     {
-        die "CSV data source not implemented\n";
+        @records = @{csv({in => $datasource, headers => 'auto'})};
+        my $count = @records;
+        print "Loaded $count CSV records from $datasource\n";
     }
     elsif ($dataformat eq 'DBI')
     {
@@ -221,6 +237,7 @@ if (defined $datasource)
         $copies = 1;
     }
 }
+# if no datasource defined create a single null record (only command line vars)
 else
 {
     @records = ({});
