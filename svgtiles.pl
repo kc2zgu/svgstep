@@ -222,6 +222,23 @@ if (defined $datasource)
         @records = @{csv({in => $datasource, headers => 'auto'})};
         my $count = @records;
         print "Loaded $count CSV records from $datasource\n";
+        if ($query)
+        {
+            my @selrows;
+            for my $range(split /,/, $query)
+            {
+                print "CSV range: $range\n";
+                if ($range =~ /(\d+)-(\d+)/)
+                {
+                    push @selrows, @records[$1-1..$2-1];
+                }
+                else
+                {
+                    push @selrows, $records[$range-1];
+                }
+            }
+            @records = @selrows;
+        }
     }
     elsif ($dataformat eq 'DBI')
     {
@@ -330,6 +347,11 @@ for my $rec(@records)
 
         # advance to next cell
         $celln++;
+    }
+    if ($celln > @selectedcells)
+    {
+        print "Page overflow!\n";
+        last;
     }
 }
 
