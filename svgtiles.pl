@@ -175,8 +175,66 @@ die "No output specified\n" unless defined $outputpath;
 
 # get page dimensions
 
-die "Page DB not implemented\n" if defined $pagedb;
-die "Page DB not implemented\n" if defined $pagename;
+#die "Page DB not implemented\n" if defined $pagedb;
+#die "Page DB not implemented\n" if defined $pagename;
+
+sub get_page_db {
+    my $pageid = shift;
+
+    for my $page(@_)
+    {
+        if ($page->{id} eq $pageid)
+        {
+            return $page;
+        }
+    }
+    return undef;
+}
+
+if (defined $pagename)
+{
+    $pagedb //= "$FindBin::Bin/pagedb.csv";
+
+    my @pagedb = @{csv({in => $pagedb, headers => 'auto'})};
+    for my $page(@pagedb)
+    {
+        $log->debugf("Page entry: %s", $page);
+    }
+
+    my $pageref = get_page_db($pagename, @pagedb);
+    if (defined $pageref)
+    {
+        if ($pageref->{width} =~ /^\$(.+)$/)
+        {
+            $log->info("Page size $pageref->{name} uses $1");
+            my $baseref = get_page_db($1, @pagedb);
+            if (defined $baseref)
+            {
+                $log->info("Using page size $baseref->{name} ($baseref->{width} x $baseref->{height})");
+                $pagewidth = $baseref->{width};
+                $pageheight = $baseref->{height};
+            }
+            else
+            {
+                die "Page size $pageref->{width} not defined\n";
+            }
+        } else
+        {
+            $log->info("Using page size $pageref->{name} ($pageref->{width} x $pageref->{height})");
+            $pagewidth = $pageref->{width};
+            $pageheight = $pageref->{height};
+        }
+        $cols //= $pageref->{xtiles};
+        $rows //= $pageref->{ytiles};
+        $colpitch //= $pageref->{xpitch};
+        $rowpitch //= $pageref->{ypitch};
+        unless (defined $origin)
+        {
+            $originx = $pageref->{xorigin};
+            $originy = $pageref->{yorigin};
+        }
+    }
+}
 
 die "Page size not set\n" unless (defined $pagewidth && defined $pageheight);
 die "Grid size not set\n" unless (defined $cols && defined $rows);
