@@ -8,6 +8,9 @@ use Text::CSV_XS qw/csv/;
 use FindBin;
 use lib $FindBin::Bin;
 
+use Log::Any '$log';
+use Log::Any::Adapter ('Stdout', log_level => 'info');
+
 use SVGStep;
 use SVGSub;
 
@@ -182,20 +185,20 @@ die "Grid spacing not specified\n" unless (defined $colpitch && defined $rowpitc
 #die "No data source specified\n" unless (defined $datasource);
 die "No data format specified\n" if (!defined $dataformat && defined $datasource);
 
-print "Input SVG tile: $tilepath\n";
-print "Output SVG file: $outputpath\n";
-print "Output page size: $pagewidth x $pageheight\n";
-print "Grid size: $cols x $rows\n";
-print "Grid spacing: $colpitch x $rowpitch\n";
-print "Origin: $originx x $originy\n";
-print "Grid order: " . ($rowmajor ? 'row' : 'column') . " major\n";
-print "Active cells: @activecells\n" if @activecells;
+$log->info("Input SVG tile: $tilepath");
+$log->info("Output SVG file: $outputpath");
+$log->info("Output page size: $pagewidth x $pageheight");
+$log->info("Grid size: $cols x $rows");
+$log->info("Grid spacing: $colpitch x $rowpitch");
+$log->info("Origin: $originx x $originy");
+$log->info("Grid order: " . ($rowmajor ? 'row' : 'column') . " major");
+$log->info("Active cells: @activecells") if @activecells;
 for my $var(@data_vars)
 {
-    print "Data variable: $var->[0] = $var->[1]\n";
+    $log->info("Data variable: $var->[0] = $var->[1]");
 }
-print "Data source: $dataformat $datasource\n" if defined $datasource;
-print "Data selection query: $query\n" if defined $query;
+$log->info("Data source: $dataformat $datasource") if defined $datasource;
+$log->info("Data selection query: $query") if defined $query;
 
 # open input
 
@@ -203,7 +206,7 @@ my $tile = SVGStep::load_svg($tilepath);
 my $tile_root = $tile->getDocumentElement;
 
 my ($xres, $yres) = SVGStep::get_pixel_size($tile);
-print "Input pixel size: $xres x $yres\n";
+$log->debug("Input pixel size: $xres x $yres");
 
 # create output page
 
@@ -221,13 +224,13 @@ if (defined $datasource)
     {
         @records = @{csv({in => $datasource, headers => 'auto'})};
         my $count = @records;
-        print "Loaded $count CSV records from $datasource\n";
+        $log->debug("Loaded $count CSV records from $datasource");
         if ($query)
         {
             my @selrows;
             for my $range(split /,/, $query)
             {
-                print "CSV range: $range\n";
+                $log->debug("CSV range: $range");
                 if ($range =~ /(\d+)-(\d+)/)
                 {
                     push @selrows, @records[$1-1..$2-1];
@@ -250,7 +253,7 @@ if (defined $datasource)
     }
     unless (defined $copies)
     {
-        print "Defaulting to 1 copy\n";
+        $log->info("Defaulting to 1 copy");
         $copies = 1;
     }
 }
@@ -261,7 +264,7 @@ else
     unless (defined $copies)
     {
         $copies = $cols*$rows;
-        print "Defaulting to $copies copies\n";
+        $log->info("Defaulting to $copies copies");
     }
 }
 
@@ -271,7 +274,7 @@ my @allcells;
 my ($cx, $cy) = (0,0);
 for (1..$cols*$rows)
 {
-    print "Cell $cx $cy\n";
+    $log->debug("Cell $cx $cy");
     push @allcells, [$cx, $cy];
     if ($rowmajor)
     {
@@ -301,13 +304,13 @@ if (@activecells)
     for my $acn(@activecells)
     {
         my $acell = $allcells[$acn-1];
-        print "Active cell: $acell->[0] $acell->[1]\n";
+        $log->info("Active cell: $acell->[0] $acell->[1]");
         push @selectedcells, $acell;
     }
 }
 else
 {
-    print "All cells selected\n";
+    $log->info("All cells selected");
     @selectedcells = @allcells;
 }
 
@@ -318,14 +321,14 @@ for my $rec(@records)
 {
     for (1..$copies)
     {
-        print "Placing cell $celln\n";
+        $log->info("Placing cell $celln");
         # calculate cell origin
         my $offsetx = (SVGStep::svg_to_mm($originx) +
                        $selectedcells[$celln]->[0] * SVGStep::svg_to_mm($colpitch)) * $xres;
         my $offsety = (SVGStep::svg_to_mm($originy) +
                        $selectedcells[$celln]->[1] * SVGStep::svg_to_mm($rowpitch)) * $yres;
 
-        print "Output location: $offsetx mm $offsety mm\n";
+        $log->debug("Output location: $offsetx mm $offsety mm");
 
         # add immediate values
 
@@ -336,7 +339,7 @@ for my $rec(@records)
 
         for my $key(sort keys %$rec)
         {
-            print "Data value: $key = $rec->{$key}\n";
+            $log->debug("Data value: $key = $rec->{$key}");
         }
 
         my $subdoc = SVGSub::dup_svg($tile);
@@ -350,7 +353,7 @@ for my $rec(@records)
     }
     if ($celln > @selectedcells)
     {
-        print "Page overflow!\n";
+        $log->warn("Page overflow!");
         last;
     }
 }

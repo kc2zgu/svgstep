@@ -5,6 +5,8 @@ use warnings;
 
 use XML::DOM;
 
+use Log::Any '$log';
+
 my %svg_units = ( mm => 1,
                   cm => 10,
                   in => 25.4,
@@ -34,7 +36,7 @@ sub load_svg {
     my $svgpath = shift;
 
     my $parser = XML::DOM::Parser->new;
-    print "Loading $svgpath\n";
+    $log->info("Loading $svgpath");
     return $parser->parsefile($svgpath);
 }
 
@@ -54,7 +56,7 @@ sub get_pixel_size {
 sub new_svg {
     my ($width, $height, $xres, $yres) = @_;
 
-    print "Crating new SVG document\n";
+    $log->info("Creating new SVG document ($width x $height)");
     my $svg = XML::DOM::Document->new;
     $svg->setXMLDecl($svg->createXMLDecl('1.0', 'UTF-8'));
 
@@ -65,7 +67,7 @@ sub new_svg {
     $svg_root->setAttribute(height => $height);
 
     my @vbox = (0, 0, svg_to_mm($width) * $xres, svg_to_mm($height) * $yres);
-    print "Computed viewBox: @vbox\n";
+    $log->debug("Computed viewBox: @vbox");
     $svg_root->setAttribute(viewBox => join(' ', @vbox));
 
     $svg->appendChild($svg_root);
@@ -84,7 +86,7 @@ sub svg_copy_defs {
         my $prefix = $index->getName;
         next unless $prefix =~ /^xmlns:/;
         my $nsuri = $index->getValue;
-        print "namespace: $prefix = $nsuri\n";
+        $log->debug("namespace: $prefix = $nsuri");
         $dest_root->setAttribute($prefix, $nsuri);
     }
     my @tile_nodes = $tile->getDocumentElement->getChildNodes;
@@ -95,7 +97,7 @@ sub svg_copy_defs {
             my $childcopy = $child->cloneNode(1);
             $childcopy->setOwnerDocument($dest);
             $dest_root->appendChild($childcopy);
-            print "Copied " . $child->getTagName ." element\n";
+            $log->debug("Copied " . $child->getTagName ." element");
         }
     }
 }
@@ -118,7 +120,7 @@ sub svg_add_step {
             my $childcopy = $child->cloneNode(1);
             $childcopy->setOwnerDocument($dest);
             $newgroup->appendChild($childcopy);
-            print "Copied " . $child->getTagName ." element\n";
+            $log->debug("Copied " . $child->getTagName ." element");
         }
     }
 

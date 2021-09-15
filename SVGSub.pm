@@ -5,11 +5,13 @@ use warnings;
 
 use XML::DOM;
 
+use Log::Any '$log';
+
 sub load_svg {
     my $svgpath = shift;
 
     my $parser = XML::DOM::Parser->new;
-    print "Loading $svgpath\n";
+    $log->info("Loading $svgpath");
     return $parser->parsefile($svgpath);
 }
 
@@ -31,7 +33,7 @@ sub _sub_text {
     $text =~ s[\$\{([a-zA-Z0-9_]+)\}]
               [exists $vars->{vars}->{$1} ? $vars->{vars}->{$1} : '???']eg;
 
-    print "Substituted text: $text\n";
+    $log->debug("Substituted text: $text");
 
     return $text;
 }
@@ -40,7 +42,7 @@ sub _sub_subtree {
     my ($el, $vars) = @_;
 
     my $tag = $el->getTagName;
-    print "Substituting in $tag\n";
+    $log->debug("Substituting in $tag");
 
     for my $child($el->getChildNodes)
     {
@@ -53,11 +55,31 @@ sub _sub_subtree {
             if ($child->getNodeType == TEXT_NODE || $child->getNodeType == CDATA_SECTION_NODE)
             {
                 my $textval = $child->getData;
-                print "Text in $tag: $textval\n";
+                $log->debug("Text in $tag: $textval");
                 $child->setData(_sub_text($textval, $vars));
             }
         }
     }
+}
+
+sub _get_config {
+    my $node = shift;
+    my %conf;
+
+    if ($node->getNodeType == ELEMENT_NODE)
+    {
+        if (my $desc = $node->getAttribute('description'))
+        {
+            my @dirs = split /\n|;\s*/, $desc;
+            for my $dir(@dirs)
+            {
+                my ($key, $value) = split /:\s*/, $dir;
+                $conf{$key} = $value;
+            }
+        }
+    }
+
+    return \%conf;
 }
 
 1;
