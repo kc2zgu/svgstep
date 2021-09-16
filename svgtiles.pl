@@ -9,7 +9,7 @@ use FindBin;
 use lib $FindBin::Bin;
 
 use Log::Any '$log';
-use Log::Any::Adapter ('Stdout', log_level => 'info');
+use Log::Any::Adapter;
 
 use SVGStep;
 use SVGSub;
@@ -55,6 +55,7 @@ my $query;
 my $copies;
 #   immediate
 #   data property
+my $debug;
 
 Getopt::Long::Configure('bundling');
 
@@ -72,7 +73,10 @@ GetOptions('input|i=s'        => \$tilepath,
            'format|f=s'       => \$dataformat,
            'datasource|d=s'   => \$datasource,
            'query|q=s'        => \$query,
-           'copies|c=s'       => \$copies);
+           'copies|c=s'       => \$copies,
+           'debug|D'          => \$debug);
+
+Log::Any::Adapter->set('Stdout', log_level => (defined $debug ? 'debug' : 'info'));
 
 sub usage {
     print "Usage: $0 -i input.svg -o output.svg\n";
