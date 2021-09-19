@@ -79,8 +79,32 @@ GetOptions('input|i=s'        => \$tilepath,
 Log::Any::Adapter->set('Stdout', log_level => (defined $debug ? 'debug' : 'info'));
 
 sub usage {
-    print "Usage: $0 -i input.svg -o output.svg\n";
-    print "    -s pagesize -t tiles -I pitch -O origin\n";
+    print "Usage: $0 -i input.svg -o output.svg [OPTIONS]\n\n";
+    print "    Copy input.svg to output.svg, with optional variable substitution and tiling\n\n";
+    print "Options:\n";
+    print "    -i, --input          input SVG file\n";
+    print "    -o, --output         output SVG file\n";
+    print "    -P, --pagedb         page database (default: pagedb.csv)\n";
+    print "    -p, --page           page name from database\n";
+    print "    -s, --size           page size\n";
+    print "    -t, --tiles          number of tiles per page (ROWSxCOLS)\n";
+    print "    -I, --pitch          pitch between tiles\n";
+    print "    -O, --origin         location of first tile\n";
+    print "    -r, --rowmajor       use row major order (default: column major)\n";
+    print "    -a, --active         use only specified active tiles\n";
+    print "    -V, --var VAR=VALUE  define a variable for data substitution\n";
+    print "    -f, --format         format for data source\n";
+    print "    -d, --datasource     data source\n";
+    print "    -q, --query          data source query\n";
+    print "    -c, --copies         number of copies (default: 1 if using data source, otherwise all tiles)\n";
+    print "    -D, --debug          show debug messages\n\n";
+
+    print "Dimension format for -s, -I, -O: WIDTHxHEIGHT\n";
+    print "    WIDTH and HEIGHT can use units: mm, cm, in, pt\n\n";
+
+    print "Supported data sources:\n";
+    print "    CSV: Comma-separated values file\n";
+
     exit 1;
 }
 
@@ -178,9 +202,6 @@ die "No input specified\n" unless defined $tilepath;
 die "No output specified\n" unless defined $outputpath;
 
 # get page dimensions
-
-#die "Page DB not implemented\n" if defined $pagedb;
-#die "Page DB not implemented\n" if defined $pagename;
 
 sub get_page_db {
     my $pageid = shift;
