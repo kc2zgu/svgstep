@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="3.5in"
+   height="2in"
+   viewBox="0 0 88.9 50.8"
+   version="1.1"
+   id="svg9340"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="businesscard.svg">
+  <defs
+     id="defs9334" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="123.8033"
+     inkscape:cy="136.41226"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="true"
+     units="in"
+     inkscape:snap-text-baseline="true"
+     inkscape:window-width="2472"
+     inkscape:window-height="1384"
+     inkscape:window-x="88"
+     inkscape:window-y="32"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid9903"
+       units="in"
+       spacingx="3.175"
+       spacingy="3.175"
+       empspacing="4" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata9337">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.11667;stroke-linecap:round;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
+       id="rect9961"
+       width="88.900002"
+       height="50.799999"
+       x="0"
+       y="0" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#beffee;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+       d="M 88.899999,6.3499999 H 25.4 V 44.449999 h 63.499999 v 6.35 H 0 V 0 h 88.899999 z"
+       id="path9945" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:none;fill-opacity:1;stroke:#00376f;stroke-width:2.11666667;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+       d="M 25.4,6.3499999 V 44.449999"
+       id="path9905" />
+    <path
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#7a7a7a;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+       d="m 9.525,25.4 h 6.35 l 0,-6.35 6.35,-6.35 L 19.05,9.5249999 12.7,15.875 6.35,9.5249999 3.1750001,12.7 9.525,19.05 Z"
+       id="path9907"
+       sodipodi:nodetypes="cccccccccc" />
+    <text
+       xml:space="preserve"
+       style="font-size:4.93888889px;line-height:1.25;font-family:Exo;-inkscape-font-specification:Exo;stroke-width:0.264583;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;fill:#00376f;fill-opacity:1;"
+       x="28.575001"
+       y="12.7"
+       id="text9911"><tspan
+         sodipodi:role="line"
+         id="tspan9909"
+         x="28.575001"
+         y="12.7"
+         style="stroke-width:0.264583;-inkscape-font-specification:Exo;font-family:Exo;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:4.93888889px;fill:#00376f;fill-opacity:1;">Yoyodyne Laboratories</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.175px;line-height:1.25;font-family:'TeX Gyre Heros';-inkscape-font-specification:'TeX Gyre Heros';stroke-width:0.264583;fill:#000000;fill-opacity:1;"
+       x="28.575001"
+       y="38.099998"
+       id="text9915"><tspan
+         sodipodi:role="line"
+         id="tspan9913"
+         x="28.575001"
+         y="38.099998"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Heros';-inkscape-font-specification:'TeX Gyre Heros';stroke-width:0.264583;fill:#000000;fill-opacity:1;font-size:3.175px;">123 Fake Street</tspan><tspan
+         sodipodi:role="line"
+         x="28.575001"
+         y="42.50972"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Heros';-inkscape-font-specification:'TeX Gyre Heros';stroke-width:0.264583;fill:#000000;fill-opacity:1;font-size:3.175px;"
+         id="tspan9917">Springfield, USA 90210</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.88055556px;line-height:1.25;font-family:'Luxi Sans';-inkscape-font-specification:'Luxi Sans';fill:#000000;fill-opacity:1;stroke-width:0.264583;"
+       x="28.575001"
+       y="19.049999"
+       id="text9921"><tspan
+         sodipodi:role="line"
+         x="28.575001"
+         y="19.049999"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Heros';-inkscape-font-specification:'TeX Gyre Heros';fill:#000000;fill-opacity:1;stroke-width:0.264583;font-size:3.88055556px;"
+         id="tspan9925">${NAME}</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:3.175px;line-height:1.25;font-family:'Luxi Sans';-inkscape-font-specification:'Luxi Sans';fill:#000000;fill-opacity:1;stroke-width:0.264583;"
+       x="28.575001"
+       y="25.4"
+       id="text9953"><tspan
+         sodipodi:role="line"
+         x="28.575001"
+         y="25.4"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Heros';-inkscape-font-specification:'TeX Gyre Heros';fill:#000000;fill-opacity:1;stroke-width:0.264583;font-size:3.175px;"
+         id="tspan9949">${TITLE}, ${DEPARTMENT}</tspan><tspan
+         sodipodi:role="line"
+         x="28.575001"
+         y="29.839678"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Heros';-inkscape-font-specification:'TeX Gyre Heros';fill:#000000;fill-opacity:1;stroke-width:0.264583;font-size:3.175px;"
+         id="tspan9951">${PHONE}</tspan></text>
+  </g>
+</svg>
